@@ -13,6 +13,28 @@
 {% endif %}
 
 <div class="{{ include.type | default: "list" }}__item">
+  {% if post.collection == 'publications' %}
+  <article class="archive__item publication-item" itemscope itemtype="http://schema.org/CreativeWork">
+    <div class="publication-item__side">
+      <span>{{ post.date | default: "1900-01-01" | date: "%Y" }}</span>
+      {% if post.venue %}<strong>{{ post.venue }}</strong>{% endif %}
+    </div>
+    <div class="publication-item__main">
+      <h2 class="archive__item-title" itemprop="headline">
+        <a href="{{ base_path }}{{ post.url }}" rel="permalink">{{ title }}</a>
+      </h2>
+      {% if post.excerpt %}
+        <p class="archive__item-excerpt" itemprop="description">{{ post.excerpt | markdownify | remove: '<p>' | remove: '</p>' }}</p>
+      {% endif %}
+      <div class="publication-item__links">
+        <a href="{{ base_path }}{{ post.url }}">Details</a>
+        {% if post.paperurl %}<a href="{{ post.paperurl }}">Paper</a>{% endif %}
+        {% if post.slidesurl %}<a href="{{ post.slidesurl }}">Slides</a>{% endif %}
+        {% if post.bibtexurl %}<a href="{{ post.bibtexurl }}">BibTeX</a>{% endif %}
+      </div>
+    </div>
+  </article>
+  {% else %}
   <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
     {% if include.type == "grid" and teaser %}
       <div class="archive__item-teaser">
@@ -81,4 +103,5 @@
     {% endif %}
 
   </article>
+  {% endif %}
 </div>

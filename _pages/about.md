@@ -9,13 +9,27 @@ redirect_from:
 
 <section class="home-hero">
   <div class="home-hero__copy">
-    <p class="home-eyebrow">Artificial Intelligence undergraduate · Shanghai Jiao Tong University</p>
-    <h2>Multimodal models, reasoning benchmarks, and AI agents.</h2>
+    <p class="home-eyebrow">Artificial Intelligence undergraduate, Shanghai Jiao Tong University</p>
+    <h2>Building benchmarks and models for grounded AI systems.</h2>
     <p>
       I am an undergraduate student majoring in Artificial Intelligence at Shanghai Jiao Tong University.
-      My recent research focuses on building evaluation benchmarks and applied model systems for clinical
-      multimodal understanding, programmatic spatial-temporal reasoning, and long-horizon academic agents.
+      My recent work connects multimodal clinical interpretation, programmatic spatial-temporal reasoning,
+      and long-horizon agent evaluation.
     </p>
+    <div class="hero-facts" aria-label="Research snapshot">
+      <div>
+        <strong>ICLR 2026</strong>
+        <span>CerebraGloss</span>
+      </div>
+      <div>
+        <strong>3 recent papers</strong>
+        <span>Models, benchmarks, agents</span>
+      </div>
+      <div>
+        <strong>SJTU AI</strong>
+        <span>Undergraduate research</span>
+      </div>
+    </div>
     <div class="home-actions" aria-label="Primary links">
       <a class="home-button home-button--primary" href="{{ '/publications/' | relative_url }}"><i class="fas fa-book-open" aria-hidden="true"></i> Publications</a>
       <a class="home-button" href="https://github.com/positionprivacy"><i class="fab fa-github" aria-hidden="true"></i> GitHub</a>
@@ -28,22 +42,34 @@ redirect_from:
 </section>
 
 <section class="home-section">
-  <h2>Research Interests</h2>
-  <div class="interest-grid">
+  <div class="section-heading">
+    <h2>Research Focus</h2>
+    <span>Current themes</span>
+  </div>
+  <div class="focus-list">
     <article>
-      <span class="interest-kicker">Clinical AI</span>
-      <h3>Fine-grained EEG interpretation</h3>
-      <p>Vision-language models and data pipelines for richer clinical EEG understanding beyond narrow classification.</p>
+      <i class="fas fa-wave-square" aria-hidden="true"></i>
+      <div>
+        <span class="interest-kicker">Clinical AI</span>
+        <h3>Fine-grained EEG interpretation</h3>
+        <p>Vision-language models and data pipelines for richer clinical EEG understanding beyond narrow classification.</p>
+      </div>
     </article>
     <article>
-      <span class="interest-kicker">Reasoning</span>
-      <h3>Programmatic visual reasoning</h3>
-      <p>Benchmarks and diagnostics for spatially coherent code generation across animated, temporal scenes.</p>
+      <i class="fas fa-cube" aria-hidden="true"></i>
+      <div>
+        <span class="interest-kicker">Reasoning</span>
+        <h3>Programmatic visual reasoning</h3>
+        <p>Benchmarks and diagnostics for spatially coherent code generation across animated, temporal scenes.</p>
+      </div>
     </article>
     <article>
-      <span class="interest-kicker">Agents</span>
-      <h3>Academic task solving</h3>
-      <p>Evaluation of AI agents on complex student-originated workflows that require planning, tools, and execution.</p>
+      <i class="fas fa-diagram-project" aria-hidden="true"></i>
+      <div>
+        <span class="interest-kicker">Agents</span>
+        <h3>Academic task solving</h3>
+        <p>Evaluation of AI agents on complex student-originated workflows that require planning, tools, and execution.</p>
+      </div>
     </article>
   </div>
 </section>
@@ -55,6 +81,7 @@ redirect_from:
   </div>
   <div class="paper-list">
     <article class="paper-card">
+      <span class="paper-number">01</span>
       <div class="paper-card__meta">
         <span>ICLR 2026</span>
         <span>Multimodal Clinical AI</span>
@@ -68,6 +95,7 @@ redirect_from:
     </article>
 
     <article class="paper-card">
+      <span class="paper-number">02</span>
       <div class="paper-card__meta">
         <span>arXiv 2026</span>
         <span>Spatial-Temporal Reasoning</span>
@@ -81,6 +109,7 @@ redirect_from:
     </article>
 
     <article class="paper-card">
+      <span class="paper-number">03</span>
       <div class="paper-card__meta">
         <span>arXiv 2026</span>
         <span>AI Agents</span>
