@@ -165,6 +165,7 @@ exclude:
   - "*.sublime-workspace"
   - .asset-cache
   - .bundle
+  - .devcontainer
   - _data/comments
   - _drafts
   - .github
@@ -177,6 +178,7 @@ exclude:
   - Capfile
   - config
   - CONTRIBUTING.md
+  - docker-compose.yaml
   - Dockerfile
   - Gemfile
   - Gruntfile.js
@@ -190,6 +192,7 @@ exclude:
   - Rakefile
   - README
   - README.md
+  - scripts
   - talkmap
   - talkmap.ipynb
   - talkmap.py
