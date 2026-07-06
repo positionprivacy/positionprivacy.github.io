@@ -9,10 +9,10 @@
 # Basic Site Settings
 locale                   : "en-US"
 site_theme               : "default" # Currently available options are "default", "air"
-title                    : "Qiran Zhang / My Homepage"
+title                    : "Qiran Zhang"
 title_separator          : "-"
 name                     : &name "Qiran Zhang"
-description              : &description "Undergraduate student,majoring in artificial intelligence,Shanghai Jiao Tong University"   # Update this with a general description of your site, this is the default if not overridden by a page
+description              : &description "Undergraduate student in Artificial Intelligence at Shanghai Jiao Tong University."   # Update this with a general description of your site, this is the default if not overridden by a page
 url                      : https://positionprivacy.github.io # The base hostname & protocol for your site e.g. "https://[your GitHub username].github.io",
                                                            # or if you already have some other page hosted on Github then use "https://[your GitHub username].github.io/[Your Repo Name]"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
@@ -23,13 +23,13 @@ repository               : "positionprivacy/positionprivacy.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "profile.png"
+  avatar           : "qiran-avatar.png"
   name             : "Qiran Zhang"
   pronouns         : # example: "she/her"  
-  bio              : "nothing"
-  location         : "Shanghai,China"
+  bio              : "Undergraduate student in Artificial Intelligence at Shanghai Jiao Tong University."
+  location         : "Shanghai, China"
   employer         : "Shanghai Jiao Tong University"
-  uri              : # URL
+  uri              : "https://positionprivacy.github.io"
   email            : "qrzhang_23@sjtu.edu.cn" 
 
   # Academic websites
@@ -38,9 +38,9 @@ author:
   googlescholar    : 
   inspire-hep      : # URL
   impactstory      : # URL
-  orcid            : "http://orcid.org/yourorcidurl"
+  orcid            : 
   semantic         : # URL
-  pubmed           : "https://www.ncbi.nlm.nih.gov/pubmed/?term=john+snow"
+  pubmed           : 
   researchgate     : # URL
   scopus           : # URL
 
@@ -81,12 +81,10 @@ author:
 
 # Publication Category - The following the list of publication categories and their headings
 publication_category:
-  books:
-    title: 'Books'
-  manuscripts:
-    title: 'Journal Articles'    
   conferences:
     title: 'Conference Papers'
+  preprints:
+    title: 'Preprints and Benchmarks'
 
 # Site Settings
 teaser                   :  # filename of teaser fallback teaser image placed in /images/ for social media previews
@@ -167,6 +165,8 @@ exclude:
   - "*.sublime-workspace"
   - .asset-cache
   - .bundle
+  - _data/comments
+  - _drafts
   - .github
   - .jekyll-assets-cache
   - .sass-cache
@@ -176,6 +176,7 @@ exclude:
   - CHANGELOG
   - Capfile
   - config
+  - CONTRIBUTING.md
   - Dockerfile
   - Gemfile
   - Gruntfile.js
@@ -183,10 +184,16 @@ exclude:
   - LICENSE
   - local
   - log
+  - markdown_generator
   - node_modules
   - package.json*
   - Rakefile
   - README
+  - README.md
+  - talkmap
+  - talkmap.ipynb
+  - talkmap.py
+  - talkmap_out.ipynb
   - tmp
   - vendor
 keep_files:
