@@ -1,1 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#f8f6f0"/><text x="9" y="43" font-family="Georgia" font-size="36" fill="#425b49">qz</text></svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#f8f6ee"/>
+  <path d="M13 12h34a4 4 0 0 1 4 4v36H17a4 4 0 0 1-4-4Z" fill="#718369"/>
+  <path d="M21 12h25v36H21Z" fill="#ece6d6"/>
+  <path d="M17 48h30v5H17a2.5 2.5 0 0 1 0-5Z" fill="#faf7ed" stroke="#52664d" stroke-width="2"/>
+  <path d="M36 12h7v18l-3.5-3-3.5 3Z" fill="#b8765c"/>
+  <path d="M27 36h12m-12 5h8" stroke="#a6ae94" stroke-width="2" stroke-linecap="round"/>
+</svg>
