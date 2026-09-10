@@ -350,4 +350,11 @@ body{background-color:#e8e8df;background-image:url('paper-grain.svg')}
 @media(max-width:700px){.headphones-button{margin:0 0 0 10px}.headphones-button img{width:52px;height:66px}.papers-button{margin-left:12px}.field-sketch .feather-button{width:90px;height:48px}.interactive-sticker .sticker-caption{font-size:9px}.listening-caption{font-size:12px}}
 @media(hover:none){.interactive-sticker .sticker-caption{opacity:1}}
 @media(prefers-reduced-motion:reduce){.interactive-sticker{transition:none}.interactive-sticker:hover{translate:none}}
+@media(hover:hover) and (pointer:fine) and (forced-colors:none){
+  html,body{cursor:url('cursor-ink.svg') 4 3,auto}
+  a[href],button,label[for],summary,[role=button],input[type=radio],input[type=checkbox],.paper-colors label{cursor:url('cursor-ink-link.svg') 4 3,pointer!important}
+  a[href] *,button *,.paper-colors label *{cursor:inherit}
+  input:not([type=radio]):not([type=checkbox]):not([type=button]):not([type=submit]),textarea,[contenteditable=true]{cursor:text!important}
+  button:disabled,input:disabled,[aria-disabled=true]{cursor:not-allowed!important}
+}
 @media(max-width:700px){.desk-columns{grid-template-columns:minmax(0,1fr)}.desk-heading{gap:10px}.song-desk .desk-heading h2{font-size:22px}.song-desk .vinyl-button{flex-shrink:0}.song-desk .paper-colors{flex-wrap:wrap}.telephone-link{align-self:start}}
