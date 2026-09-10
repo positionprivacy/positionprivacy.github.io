@@ -9,6 +9,7 @@
   const noteStatus = desk.querySelector('.note-status');
   const pocket = desk.querySelector('.saved-notes');
   const storageKey = 'journal-song-notes-v1';
+  const craft = window.JournalCraft;
   const colors = ['sage', 'blue', 'rose'];
   let selectedSong = null;
   let controller;
@@ -43,7 +44,7 @@
   };
   try {
     const stored = JSON.parse(localStorage.getItem(storageKey) || '[]');
-    if (Array.isArray(stored)) notes = stored.filter(note => note && typeof note.title === 'string' && typeof note.thought === 'string').slice(0, 12).map(note => ({ title: note.title.slice(0, 160), thought: note.thought.slice(0, 240), color: colors.includes(note.color) ? note.color : 'sage', url: safeLink(note.url), artwork: safeArtwork(note.artwork) }));
+    if (Array.isArray(stored)) notes = stored.filter(note => note && typeof note.title === 'string' && typeof note.thought === 'string').slice(0, 12).map(note => ({ title: note.title.slice(0, 160), thought: note.thought.slice(0, 240), color: colors.includes(note.color) ? note.color : 'sage', url: safeLink(note.url), artwork: safeArtwork(note.artwork), stamp: Object.hasOwn(craft.stamps, note.stamp) ? note.stamp : '', createdAt: typeof note.createdAt === 'string' && Number.isFinite(Date.parse(note.createdAt)) ? note.createdAt : '' }));
   } catch {}
   const element = (tag, text, className) => {
     const node = document.createElement(tag);
@@ -55,7 +56,7 @@
     try { localStorage.setItem(storageKey, JSON.stringify(notes)); return true; }
     catch { noteStatus.textContent = '瀏覽器無法保存；便箋暫留在本頁，離開前可複製或寄出。'; return false; }
   };
-  const render = () => {
+  const render = (openStamp = false) => {
     pocket.replaceChildren();
     desk.querySelector('.pocket-empty').hidden = notes.length > 0;
     notes.forEach((note, index) => {
@@ -63,6 +64,10 @@
       const cover = coverImage(note.artwork, 'card-artwork');
       if (cover) card.append(cover);
       card.append(element('span', String(index + 1).padStart(2, '0'), 'card-index'), element('h4', note.title || '留在心裡的一句'), element('p', note.thought));
+      if (note.createdAt) { const date = element('time', new Date(note.createdAt).toLocaleDateString('zh-TW'), 'note-date'); date.dateTime = note.createdAt; card.append(date); }
+      const badge = element('img', '', 'note-ink-stamp'); badge.alt = ''; badge.width = 55; badge.height = 55; badge.hidden = !note.stamp;
+      if (note.stamp) badge.src = craft.asset(`ink-${note.stamp}.svg`);
+      card.append(badge);
       const actions = element('div', '', 'card-actions');
       if (safeLink(note.url)) {
         const link = element('a', '聽這首 ↗');
@@ -81,7 +86,32 @@
         notes.splice(index, 1); const saved = persist(); render(); if (saved) noteStatus.textContent = '已取下這張便箋。';
         (pocket.querySelector('button') || title).focus();
       });
-      actions.append(mail, copy, remove); card.append(actions); pocket.append(card);
+      const exportButton = element('button', '帶走明信片 ↓'); exportButton.type = 'button';
+      exportButton.addEventListener('click', async () => {
+        exportButton.disabled = true; noteStatus.textContent = '正在整理封面與紙張……';
+        try { await craft.exportPostcard(note); noteStatus.textContent = '明信片已做好，可以預覽並下載。'; }
+        catch (error) { noteStatus.textContent = error.message || '明信片暫時無法匯出，請稍後再試。'; }
+        finally { exportButton.disabled = false; }
+      });
+      actions.append(mail, copy, exportButton, remove); card.append(actions);
+      const stampPicker = element('details', '', 'stamp-picker'); stampPicker.open = openStamp && index === 0;
+      const stampSummary = element('summary', note.stamp ? `已蓋上${craft.stamps[note.stamp]}` : '蓋一枚章');
+      const stampOptions = element('div', '', 'stamp-options'); stampOptions.setAttribute('role', 'group'); stampOptions.setAttribute('aria-label', '挑選便箋印章');
+      Object.entries({ ...craft.stamps, '': '不蓋章' }).forEach(([kind, label]) => {
+        const option = element('button'); option.type = 'button'; option.dataset.stamp = kind; option.setAttribute('aria-label', label); option.setAttribute('aria-pressed', String(note.stamp === kind));
+        if (kind) { const icon = element('img'); icon.src = craft.asset(`ink-${kind}.svg`); icon.alt = ''; icon.width = 32; icon.height = 32; option.append(icon); }
+        option.append(element('span', label));
+        option.addEventListener('click', () => {
+          note.stamp = kind; badge.hidden = !kind;
+          if (kind) badge.src = craft.asset(`ink-${kind}.svg`);
+          badge.classList.remove('stamp-landed'); void badge.offsetWidth; badge.classList.add('stamp-landed');
+          stampOptions.querySelectorAll('button').forEach(choice => choice.setAttribute('aria-pressed', String(choice === option)));
+          stampSummary.textContent = kind ? `已蓋上${label}` : '蓋一枚章';
+          if (persist()) noteStatus.textContent = kind ? `${label}印章已留在這張便箋上。` : '已取下印章。';
+        });
+        stampOptions.append(option);
+      });
+      stampPicker.append(stampSummary, stampOptions); card.append(stampPicker); pocket.append(card);
     });
   };
   const search = async term => {
@@ -141,8 +171,8 @@
     event.preventDefault();
     if (!title.value.trim() && !thought.value.trim()) { noteStatus.textContent = '先留一首歌，或一句話。'; title.focus(); return; }
     if (notes.length >= 12) { noteStatus.textContent = '已收藏 12 張；取下一張，就能放進新的便箋。'; return; }
-    notes.unshift({ title: title.value.trim().slice(0, 160), thought: thought.value.trim().slice(0, 240), color: desk.querySelector('[name="paper"]:checked').value, url: selectedSong?.title === title.value ? selectedSong.url : '', artwork: selectedSong?.title === title.value ? selectedSong.artwork : '' });
-    const saved = persist(); render(); if (saved) noteStatus.textContent = '已夾進這一頁，下次回來還在。';
+    notes.unshift({ title: title.value.trim().slice(0, 160), thought: thought.value.trim().slice(0, 240), color: desk.querySelector('[name="paper"]:checked').value, url: selectedSong?.title === title.value ? selectedSong.url : '', artwork: selectedSong?.title === title.value ? selectedSong.artwork : '', stamp: '', createdAt: new Date().toISOString() });
+    const saved = persist(); render(true); if (saved) noteStatus.textContent = '已夾進這一頁。再挑一枚印章，或把它帶走。';
     title.value = ''; thought.value = ''; selectedSong = null;
     updateCover();
   });
@@ -157,6 +187,49 @@
       thought.focus(); noteStatus.textContent = '已放到書寫區，可以添上自己的心情再收藏。';
     });
     record.append(button);
+  });
+  const backNotes = {
+    '吉他手': { song: '小步舞曲', lyric: '戀人在屋簷下相偎相依', source: 'https://lrclib.net/api/get/37474723' },
+    '神的遊戲': { song: '艷火', lyric: '曾經的黑白，此刻燦爛', source: 'https://lrclib.net/api/get/35612505' },
+    '華麗的冒險': { song: '旅行的意義', lyric: '你迷失在地圖上每一道短暫的光陰', source: 'https://lrclib.net/api/get/13975329' },
+    'My Life Will': { song: '寶貝', lyric: '讓你今夜都好眠', source: 'https://lrclib.net/api/get/36854756' },
+    '親愛的...我還不知道': { song: '喜歡', lyric: '還不懂，這一秒鐘', source: 'https://lrclib.net/api/get/17464632' },
+    '太陽': { song: '魚', lyric: '我坐在椅子上，看日出復活', source: 'https://lrclib.net/api/get/32416135' },
+    '還是會寂寞': { song: '還是會寂寞', lyric: '你的一舉一動牽扯在我生活的隙縫', source: 'https://lrclib.net/api/get/4372337' },
+    '城市': { song: '南國的孩子', lyric: '風揚起了你的黑髮', source: 'https://lrclib.net/api/get/24302538' },
+    '時間的歌': { song: '流浪者之歌', lyric: '流浪到大樹下終於解脫', source: 'https://lrclib.net/api/get/37375328' },
+    vacation: { song: '結晶', lyric: '一杯水倒了，滲透進入纖維', source: 'https://lrclib.net/api/get/32698133' }
+  };
+  const setBack = record => {
+    const album = record.querySelector('h3').textContent.trim();
+    const details = backNotes[album] || (album.startsWith('如果每天') ? backNotes.vacation : null);
+    const back = record.querySelector('.record-back');
+    if (!back || !details) return;
+    back.replaceChildren(element('span', '唱片背面', 'eyebrow'), element('h4', details.song), element('p', `「${details.lyric}」`, 'back-lyric'), element('small', `${album} / ${record.querySelector('.sleeve-bottom').textContent.replace('↗', '').trim()}`));
+    const copy = element('button', '抄下這一句 ↗'); copy.type = 'button';
+    copy.addEventListener('click', () => {
+      thought.value = details.lyric; title.value = `${details.song} · ${record.querySelector('.record-credit').textContent.split('/')[0].trim()}`;
+      selectedSong = { title: title.value, url: safeLink(record.querySelector('.record-art').href), artwork: record.querySelector('.record-art img').src };
+      updateCover(); thought.focus(); noteStatus.textContent = '背面的這一句，已放進便箋。';
+    });
+    back.append(copy);
+    const turn = record.querySelector('.record-turn');
+    if (back.contains(document.activeElement)) turn.focus({ preventScroll: true });
+    record.classList.remove('is-flipped'); back.hidden = true;
+    const front = record.querySelector('.record-art'); front.inert = false; front.removeAttribute('aria-hidden');
+    turn.setAttribute('aria-expanded', 'false'); turn.textContent = '翻面 ↗';
+  };
+  document.querySelectorAll('.record').forEach((record, index) => {
+    const front = record.querySelector('.record-art');
+    const sleeve = element('div', '', 'record-sleeve'); front.replaceWith(sleeve); sleeve.append(front);
+    const back = element('section', '', 'record-back'); back.id = `record-back-${index}`; back.hidden = true; back.setAttribute('aria-label', '唱片背面的曲目與摘句');
+    const turn = element('button', '翻面 ↗', 'record-turn'); turn.type = 'button'; turn.setAttribute('aria-controls', back.id); turn.setAttribute('aria-expanded', 'false');
+    sleeve.append(back, turn); setBack(record);
+    turn.addEventListener('click', () => {
+      const flipped = record.classList.toggle('is-flipped'); back.hidden = !flipped; front.inert = flipped;
+      if (flipped) front.setAttribute('aria-hidden', 'true'); else front.removeAttribute('aria-hidden');
+      turn.setAttribute('aria-expanded', String(flipped)); turn.textContent = flipped ? '正面 ↶' : '翻面 ↗';
+    });
   });
   const contact = document.querySelector('.contact-sticker');
   if (contact) {
@@ -233,6 +306,7 @@
           record.querySelector('.sleeve-bottom').replaceChildren(document.createTextNode(item.year + ' '), element('span', '↗'));
           if (item.headingMarkup) record.querySelector('h3').innerHTML = item.headingMarkup; else record.querySelector('h3').textContent = item.title;
           record.querySelector('.record-credit').textContent = item.artist;
+          setBack(record);
         });
         shelfIndex = nextIndex;
         caption.textContent = `第 ${shelfIndex + 1} / ${shelves.length} 組 · 再點耳機，繼續翻閱`;
@@ -258,5 +332,6 @@
       papers.setAttribute('aria-label', label); papers.title = label; papers.querySelector('span').textContent = label;
     });
   }
+  document.querySelectorAll('.headphones-button, .feather-button, .vinyl-button').forEach(craft.makeDraggable);
   render();
 })();

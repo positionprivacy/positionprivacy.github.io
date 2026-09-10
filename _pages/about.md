@@ -133,7 +133,7 @@ redirect_from:
   </div><div class="note-pocket"><h3>頁間收藏</h3><p class="pocket-empty">還空著，等你放進第一首歌。</p><div class="saved-notes"></div></div></div>
   <noscript>啟用 JavaScript，即可搜尋歌曲與收藏便箋。</noscript>
 </section>
-<script src="{{ '/assets/js/journal.js' | relative_url }}" defer></script>
+<script src="{{ '/assets/js/journal.js' | relative_url }}?v=craft-01" defer></script>
 <section class="home-section contact-panel" id="contact">
   <img class="contact-sticker" src="{{ '/images/decorations/telephone.png' | relative_url }}" width="90" height="90" alt="" aria-hidden="true">
   <div>

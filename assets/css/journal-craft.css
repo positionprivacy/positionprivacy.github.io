@@ -1,0 +1,137 @@
+.page-rituals {
+  position: fixed;
+  right: max(12px, calc((100vw - 1270px) / 2));
+  bottom: 26px;
+  z-index: 20;
+  display: grid;
+  gap: 12px;
+  width: 65px;
+  padding: 10px 4px;
+  color: var(--green);
+  border-radius: 26px 6px 18px 8px;
+  background: #faf6e9e8 url('cotton-paper.svg');
+  box-shadow: 1px 3px 10px #42371d14;
+}
+.page-rituals > button { border: 0; background: none; color: inherit; padding: 0; cursor: pointer; }
+.page-rituals img { display: block; object-fit: contain; margin: auto; pointer-events: none; }
+.page-rituals span { display: block; font: 11px/1.5 var(--serif); margin-top: 3px; }
+.lamp-toggle img { transform: rotate(-7deg); transition: filter .3s, transform .3s; }
+.lamp-toggle[aria-pressed=true] img { filter: drop-shadow(0 2px 9px #deb26390); transform: rotate(-3deg); }
+.leaf-bookmark img { transform: rotate(11deg); transition: transform .2s; }
+.leaf-bookmark:hover img,.leaf-bookmark.has-bookmark img { transform: rotate(-6deg); }
+.leaf-bookmark.has-bookmark span { text-decoration: underline dotted; text-underline-offset: 4px; }
+.bookmark-drawer {
+  position: absolute; bottom: 0; right: 80px; width: 230px; padding: 18px;
+  background: var(--paper) url('paper-fibers.svg'); color: var(--ink);
+  border: 1px solid var(--line); box-shadow: 3px 5px 12px #43371d20;
+}
+.bookmark-drawer p { font: 16px/1.5 var(--serif); margin: 0 0 13px; }
+.bookmark-drawer button { display: block; border: 0; border-bottom: 1px dotted var(--line); padding: 7px 0; background: none; color: var(--green); font: 13px var(--serif); cursor: pointer; }
+.bookmark-drawer [hidden] { display: none; }
+.craft-status { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 30; max-width: min(420px, 75vw); padding: 10px 16px; background: var(--paper); color: var(--ink); box-shadow: 0 2px 15px #42371d25; font: 14px/1.6 var(--serif); opacity: 0; pointer-events: none; transition: opacity .2s; }
+.craft-status.is-visible { opacity: 1; }
+.page-rituals button:focus-visible,.record-turn:focus-visible,.record-back button:focus-visible,.stamp-picker button:focus-visible,.stamp-picker summary:focus-visible,.postcard-dialog :is(a,button):focus-visible { outline: 2px solid var(--rust); outline-offset: 4px; }
+.movable-sticker { translate: var(--sticker-x, 0px) var(--sticker-y, 0px); rotate: var(--sticker-turn, 0deg); user-select: none; }
+.interactive-sticker.movable-sticker:hover { translate: var(--sticker-x, 0px) var(--sticker-y, 0px); }
+.movable-sticker.is-dragging { transition: none; filter: drop-shadow(2px 5px 3px #51452c38); z-index: 4; }
+.movable-sticker.is-dragging,.movable-sticker.is-dragging * { cursor: grabbing !important; }
+.record-sleeve { position: relative; }
+.record-turn { position: absolute; right: -4px; bottom: -3px; z-index: 3; border: 0; color: #716651; background: #f6edd9; box-shadow: -2px -2px 5px #54452e0c; padding: 9px 10px 6px 18px; font: 11px var(--serif); clip-path: polygon(18% 0, 100% 0, 100% 100%, 0 100%); cursor: pointer; }
+.record-turn:hover { background: #e8dec2; }
+.record-back { position: absolute; inset: 0; z-index: 2; padding: 30px 23px 45px; background: #ebe7d9 url('paper-fibers.svg'); border: 1px solid #c8bea269; box-shadow: 2px 4px 8px #50473312; color: var(--ink); transform: rotate(-.6deg); }
+.record-back::after { content: ''; position: absolute; right: 18px; bottom: 45px; width: 48px; height: 48px; background: url('../../images/decorations/ink-record.svg') center / contain no-repeat; opacity: .5; pointer-events: none; }
+.record-back h4 { font: 27px/1.3 var(--serif); margin: 23px 0; }
+.record-back .back-lyric { font: 19px/1.9 var(--serif); color: var(--green); margin: 24px 0; }
+.record-back small { display: block; font: 11px/1.7 var(--sans); color: var(--muted); }
+.record-back button { margin-top: 24px; border: 0; border-bottom: 1px dotted var(--line); background: none; color: var(--green); padding: 5px 0; font: 12px var(--serif); cursor: pointer; }
+.record.is-flipped .record-art { visibility: hidden; }
+.record.is-flipped .record-back { animation: paper-turn .26s ease-out; }
+.record-back[hidden] { display: none; }
+@keyframes paper-turn { from { opacity: 0; transform: rotate(1deg) translateY(5px); } to { opacity: 1; transform: rotate(-.6deg); } }
+.song-card .note-date { display: block; font: 10px var(--sans); color: var(--muted); margin: 12px 0 6px; }
+.song-card .note-ink-stamp { position: absolute; width: 55px; height: 55px; top: 74px; left: 10px; opacity: .8; transform: rotate(-12deg); pointer-events: none; }
+.song-card:not(:has(.card-artwork)):has(.note-ink-stamp:not([hidden])) { padding-left: 78px; }
+.song-card:not(:has(.card-artwork)) .note-ink-stamp { top: 18px; }
+.note-ink-stamp[hidden] { display: none; }
+.stamp-picker { margin-top: 12px; padding-top: 8px; border-top: 1px dotted #a0a18770; color: var(--green); font: 12px var(--serif); }
+.stamp-picker summary { cursor: pointer; width: fit-content; padding: 5px 0; }
+.stamp-options { display: flex; gap: 6px; flex-wrap: wrap; padding-top: 7px; }
+.stamp-options button { border: 1px solid transparent; background: transparent; color: inherit; padding: 3px 5px; font: 10px var(--serif); cursor: pointer; }
+.stamp-options img { display: block; margin: auto; }
+.stamp-options button[aria-pressed=true] { border-color: #9ba180; border-radius: 4px; }
+.stamp-landed { animation: ink-press .25s ease-out; }
+@keyframes ink-press { from { opacity: .1; scale: 1.3; } to { opacity: .8; scale: 1; } }
+.card-actions button:disabled { opacity: .6; }
+.postcard-dialog { width: min(880px, 92vw); max-height: 92dvh; overflow: auto; box-sizing: border-box; padding: 24px; border: 1px solid #c6bba3; background: #f7f2e7; color: #3e473b; box-shadow: 0 12px 55px #14161140; }
+.postcard-dialog::backdrop { background: #25271eaa; }
+.postcard-dialog h2 { font-size: 25px; margin: 0 0 18px; }
+.postcard-dialog > img { width: 100%; height: auto; display: block; }
+.postcard-actions { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; margin-top: 20px; }
+.postcard-actions a,.postcard-actions button { font: 15px var(--serif); padding: 7px 0; background: transparent; border: 0; border-bottom: 1px solid #9aa084; cursor: pointer; color: #52644b; }
+html[data-theme=night] { color-scheme: dark; --paper: #292b26; --ink: #e6decc; --muted: #bdb7a6; --green: #bac5a3; --rust: #dfac8c; --line: #535747; }
+html[data-theme=night] body { background-color: #1e211d; color: var(--ink); }
+html[data-theme=night] .notebook { background-color: #292b26; box-shadow: 0 0 0 1px #434636, 2px 3px 0 #383b2e, 0 12px 35px #11180e40; }
+html[data-theme=night] :is(.intro-bio,.focus-list,.journal-notes,.contact-panel) { background-color: #34392e; color: var(--ink); border-color: #646c514d; }
+html[data-theme=night] :is(.paper-card,.paper-card:nth-child(even)) { background-color: #313731; color: var(--ink); border-color: #59644f; }
+html[data-theme=night] :is(.monogram,.intro-bio p,.intro-bio strong,.focus-list h3,.focus-list p,.interest-kicker,.paper-card p,.paper-card h3,.paper-card__meta,.paper-card__meta span:first-child,.home-actions a,.journal-notes p,.contact-panel p,.book-footer,.intro-label,.thread-number,.paper-number) { color: var(--ink); }
+html[data-theme=night] :is(.section-heading>span,.section-heading>a,#research .section-heading>span,.music-heading h2 i,.record-credit) { color: var(--muted); }
+html[data-theme=night] .record-room::before { background: url('paper-fibers.svg'), #30372c; border-color: #525b43; }
+html[data-theme=night] .record .record-art { background-color: #353d3a; color: var(--ink); box-shadow: 1px 4px 10px #080e0750; }
+html[data-theme=night] .record-wind .record-art { background-color: #3a3e2f; }
+html[data-theme=night] .record-play .record-art { background-color: #423b32; }
+html[data-theme=night] :is(.record .art-word,.record .pencil-note,.sleeve-top,.sleeve-bottom) { color: var(--ink); }
+html[data-theme=night] .record-art img { border: 3px solid #b6a98940; }
+html[data-theme=night] .record-back { background-color: #3d4031; border-color: #6b7152; }
+html[data-theme=night] .record-turn { background: #595944; color: #ece3d2; }
+html[data-theme=night] .visitor-bookmark.song-desk { background-color: #33382c; border-color: #595c44; box-shadow: 4px 5px 0 #424534, 0 12px 24px #11190c40; }
+html[data-theme=night] .song-desk .song-note-form { background-color: #404632; }
+html[data-theme=night] .song-desk .song-note-form[data-paper=blue] { background-color: #34474a; }
+html[data-theme=night] .song-desk .song-note-form[data-paper=rose] { background-color: #514033; }
+html[data-theme=night] .song-desk .note-pocket { background-color: #2e3429; border-color: #606849; }
+html[data-theme=night] .song-desk .song-result { background-color: #3c4433; color: var(--ink); }
+html[data-theme=night] .song-desk .song-result:hover,html[data-theme=night] .song-desk .song-result[aria-pressed=true] { background-color: #4b573b; }
+html[data-theme=night] .song-card { background-color: #424c36; }
+html[data-theme=night] .song-card.paper-blue { background-color: #35474b; }
+html[data-theme=night] .song-card.paper-rose { background-color: #554132; }
+html[data-theme=night] .song-desk :is(input,textarea) { color: var(--ink); }
+html[data-theme=night] .song-desk :is(input,textarea)::placeholder { color: #c3c0ac; opacity: .8; }
+html[data-theme=night] .song-desk :is(.save-note,.search-line button) { color: var(--green); }
+html[data-theme=night] .page-rituals { background-color: #343b2cf2; }
+html[data-theme=night] .interactive-sticker .sticker-caption { background: #303729ef; color: var(--green); }
+html[data-theme=night] .note-ink-stamp,html[data-theme=night] .stamp-options img { filter: brightness(1.7) saturate(.7); }
+html[data-theme=night] a:hover { color: var(--rust); }
+html[data-theme=night] .postcard-dialog { color-scheme: light; }
+html[data-theme=night] :is(.contact-panel h2,.home-section h2,.notebook>h1,.song-card h4,.record h3) { color: var(--ink); }
+html[data-theme=night] .intro h1 { color: var(--ink); }
+html[data-theme=night] :is(.intro h1,.section-heading h2,.music-heading h2,.home-section>h2,.monogram,.record .art-word,.paper-number) { text-shadow: none; }
+html[data-theme=night] .intro-bio::after { background-color: #434b37; border-color: #667052; }
+html[data-theme=night] .notebook { background-image: linear-gradient(#292b26df, #292b26df), url('paper-grain.svg'); }
+html[data-theme=night] :is(.intro-bio,.focus-list,.journal-notes,.contact-panel) { background-image: linear-gradient(#34392ed9, #34392ed9), url('cotton-paper.svg'); }
+html[data-theme=night] :is(.paper-card,.paper-card:nth-child(even)) { background-image: linear-gradient(#313731dc, #313731dc), url('cotton-paper.svg'); }
+html[data-theme=night] .record-room::before { background-image: linear-gradient(#30372ce6, #30372ce6), url('paper-fibers.svg'); }
+html[data-theme=night] .record .record-art { background-image: linear-gradient(#353d3ac9, #353d3ac9), url('cotton-paper.svg'); }
+html[data-theme=night] .record-wind .record-art { background-image: linear-gradient(#3a3e2fcc, #3a3e2fcc), url('cotton-paper.svg'); }
+html[data-theme=night] .record-play .record-art { background-image: linear-gradient(#423b32cc, #423b32cc), url('cotton-paper.svg'); }
+html[data-theme=night] .record-art::after { opacity: .12; }
+html[data-theme=night] .visitor-bookmark.song-desk { background-image: linear-gradient(#33382cdd, #33382cdd), url('cotton-paper.svg'); }
+html[data-theme=night] .song-desk .note-pocket { background-image: linear-gradient(#2e3429e0, #2e3429e0), url('paper-fibers.svg'); }
+html[data-theme=night] :is(.song-desk .song-note-form,.song-card) { background-image: linear-gradient(#404632d4, #404632d4), url('cotton-paper.svg'); }
+html[data-theme=night] :is(.song-desk .song-note-form[data-paper=blue],.song-card.paper-blue) { background-image: linear-gradient(#34474ad4, #34474ad4), url('cotton-paper.svg'); }
+html[data-theme=night] :is(.song-desk .song-note-form[data-paper=rose],.song-card.paper-rose) { background-image: linear-gradient(#514033d4, #514033d4), url('cotton-paper.svg'); }
+html[data-theme=night] .page-rituals { background-image: linear-gradient(#343b2cdd, #343b2cdd), url('cotton-paper.svg'); }
+@media(max-width:1250px) { .page-rituals { right: 8px; bottom: 12px; width: 55px; } .page-rituals img { max-height: 47px; } }
+@media(max-width:700px) {
+  .page-rituals { grid-template-columns: 1fr 1fr; width: 104px; gap: 0; padding: 5px 1px; border-radius: 10px; bottom: 10px; }
+  .page-rituals img { height: 32px; width: 30px; }
+  .page-rituals span { font-size: 9px; }
+  .bookmark-drawer { right: 0; bottom: 69px; width: min(260px, 88vw); }
+  .book-footer { padding-bottom: 80px; }
+  .record-back { padding: 24px 20px 40px; }
+  .record-back h4 { font-size: 25px; }
+  .record-back .back-lyric { font-size: 17px; }
+  .postcard-dialog { padding: 14px; }
+  .craft-status { bottom: 85px; width: max-content; }
+}
+@media(prefers-reduced-motion:reduce) { .lamp-toggle img,.leaf-bookmark img,.craft-status { transition: none; } .record.is-flipped .record-back,.stamp-landed { animation: none; } }
+@media(forced-colors:active) { .page-rituals,.bookmark-drawer { border: 1px solid ButtonText; } }
+@media print { .page-rituals,.craft-status,.record-turn,.stamp-picker,.postcard-dialog { display: none; } }
