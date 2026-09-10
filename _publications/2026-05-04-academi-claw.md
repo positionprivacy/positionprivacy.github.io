@@ -1,5 +1,6 @@
 ---
 title: "AcademiClaw: When Students Set Challenges for AI Agents"
+layout: notebook
 collection: publications
 category: preprints
 permalink: /publication/academi-claw/

@@ -1,5 +1,6 @@
 ---
 title: "CerebraGloss: Instruction-Tuning a Large Vision-Language Model for Fine-Grained Clinical EEG Interpretation"
+layout: notebook
 collection: publications
 category: conferences
 permalink: /publication/cerebragloss/
