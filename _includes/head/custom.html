@@ -13,5 +13,10 @@
 <link rel="manifest" href="{{ base_path }}/images/manifest.json"/>
 <link rel="icon" href="/images/favicon.ico"/>
 <meta name="theme-color" content="#f6f7f6"/>
+<meta property="og:type" content="website"/>
+<meta property="og:title" content="{{ page.title | default: site.title | escape }}"/>
+<meta property="og:description" content="{{ site.description | escape }}"/>
+<meta property="og:image" content="{{ base_path }}/images/research-banner.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
 
 <!-- end custom head snippets -->
