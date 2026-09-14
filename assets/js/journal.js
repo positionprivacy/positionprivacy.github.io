@@ -205,7 +205,8 @@
     const details = backNotes[album] || (album.startsWith('如果每天') ? backNotes.vacation : null);
     const back = record.querySelector('.record-back');
     if (!back || !details) return;
-    back.replaceChildren(element('span', '唱片背面', 'eyebrow'), element('h4', details.song), element('p', `「${details.lyric}」`, 'back-lyric'), element('small', `${album} / ${record.querySelector('.sleeve-bottom').textContent.replace('↗', '').trim()}`));
+    const backImage = element('img', '', 'back-art'); backImage.src = record.querySelector('.record-art img').src; backImage.alt = ''; backImage.loading = 'lazy';
+    back.replaceChildren(backImage, element('span', '唱片背面', 'eyebrow'), element('h4', details.song), element('p', `「${details.lyric}」`, 'back-lyric'), element('small', `${album} / ${record.querySelector('.sleeve-bottom').textContent.replace('↗', '').trim()}`));
     const copy = element('button', '抄下這一句 ↗'); copy.type = 'button';
     copy.addEventListener('click', () => {
       thought.value = details.lyric; title.value = `${details.song} · ${record.querySelector('.record-credit').textContent.split('/')[0].trim()}`;

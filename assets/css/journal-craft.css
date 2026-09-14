@@ -42,6 +42,8 @@
 .record-turn:hover { background: #e8dec2; }
 .record-back { position: absolute; inset: 0; z-index: 2; padding: 30px 23px 45px; background: #ebe7d9 url('paper-fibers.svg'); border: 1px solid #c8bea269; box-shadow: 2px 4px 8px #50473312; color: var(--ink); transform: rotate(-.6deg); }
 .record-back::after { content: ''; position: absolute; right: 18px; bottom: 45px; width: 48px; height: 48px; background: url('../../images/decorations/ink-record.svg') center / contain no-repeat; opacity: .5; pointer-events: none; }
+.record-back .back-art { position: absolute; right: 18px; top: 18px; width: 76px; height: 76px; object-fit: cover; opacity: .78; filter: saturate(.72) contrast(.92); border: 3px solid #f4ead455; transform: rotate(4deg); box-shadow: 2px 3px 7px #40351f25; }
+.record-back .back-art + .eyebrow { position: relative; z-index: 1; }
 .record-back h4 { font: 27px/1.3 var(--serif); margin: 23px 0; }
 .record-back .back-lyric { font: 19px/1.9 var(--serif); color: var(--green); margin: 24px 0; }
 .record-back small { display: block; font: 11px/1.7 var(--sans); color: var(--muted); }
