@@ -32,7 +32,9 @@
 .craft-status.is-visible { opacity: 1; }
 .page-rituals button:focus-visible,.record-turn:focus-visible,.record-back button:focus-visible,.stamp-picker button:focus-visible,.stamp-picker summary:focus-visible,.postcard-dialog :is(a,button):focus-visible { outline: 2px solid var(--rust); outline-offset: 4px; }
 .movable-sticker { translate: var(--sticker-x, 0px) var(--sticker-y, 0px); rotate: var(--sticker-turn, 0deg); user-select: none; }
-.interactive-sticker.movable-sticker:hover { translate: var(--sticker-x, 0px) var(--sticker-y, 0px); }
+.interactive-sticker.movable-sticker { transition: filter .25s ease, scale .25s ease; transform-origin: 50% 85%; }
+.interactive-sticker.movable-sticker:hover { translate: var(--sticker-x, 0px) var(--sticker-y, 0px); scale: 1.06; filter: drop-shadow(2px 5px 4px #51452c38); }
+.interactive-sticker.movable-sticker:active { scale: .98; }
 .movable-sticker.is-dragging { transition: none; filter: drop-shadow(2px 5px 3px #51452c38); z-index: 4; }
 .movable-sticker.is-dragging,.movable-sticker.is-dragging * { cursor: grabbing !important; }
 .record-sleeve { position: relative; }
@@ -105,14 +107,14 @@ html[data-theme=night] :is(.contact-panel h2,.home-section h2,.notebook>h1,.song
 html[data-theme=night] .intro h1 { color: var(--ink); }
 html[data-theme=night] :is(.intro h1,.section-heading h2,.music-heading h2,.home-section>h2,.monogram,.record .art-word,.paper-number) { text-shadow: none; }
 html[data-theme=night] .intro-bio::after { background-color: #434b37; border-color: #667052; }
-html[data-theme=night] .notebook { background-image: linear-gradient(#292b26df, #292b26df), url('paper-grain.svg'); }
+html[data-theme=night] .notebook { background-image: linear-gradient(#292b26c4, #292b26c4), url('paper-grain.svg'); background-blend-mode: normal, screen; }
 html[data-theme=night] :is(.intro-bio,.focus-list,.journal-notes,.contact-panel) { background-image: linear-gradient(#34392ed9, #34392ed9), url('cotton-paper.svg'); }
 html[data-theme=night] :is(.paper-card,.paper-card:nth-child(even)) { background-image: linear-gradient(#313731dc, #313731dc), url('cotton-paper.svg'); }
 html[data-theme=night] .record-room::before { background-image: linear-gradient(#30372ce6, #30372ce6), url('paper-fibers.svg'); }
 html[data-theme=night] .record .record-art { background-image: linear-gradient(#353d3ac9, #353d3ac9), url('cotton-paper.svg'); }
 html[data-theme=night] .record-wind .record-art { background-image: linear-gradient(#3a3e2fcc, #3a3e2fcc), url('cotton-paper.svg'); }
 html[data-theme=night] .record-play .record-art { background-image: linear-gradient(#423b32cc, #423b32cc), url('cotton-paper.svg'); }
-html[data-theme=night] .record-art::after { opacity: .12; }
+html[data-theme=night] .record-art::after { opacity: .22; }
 html[data-theme=night] .visitor-bookmark.song-desk { background-image: linear-gradient(#33382cdd, #33382cdd), url('cotton-paper.svg'); }
 html[data-theme=night] .song-desk .note-pocket { background-image: linear-gradient(#2e3429e0, #2e3429e0), url('paper-fibers.svg'); }
 html[data-theme=night] :is(.song-desk .song-note-form,.song-card) { background-image: linear-gradient(#404632d4, #404632d4), url('cotton-paper.svg'); }
